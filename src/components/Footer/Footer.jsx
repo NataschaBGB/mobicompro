@@ -11,7 +11,7 @@ export default function Footer() {
     return (
         <footer className="footer">
 
-            <NavLink to="/" 
+            <NavLink to="/mobicompro" 
                 className={({ isActive }) =>
                     `footer__navigation-icon ${isActive ? "footer__navigation-icon--active" : ""}`
                 }
