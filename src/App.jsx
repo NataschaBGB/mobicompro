@@ -13,7 +13,7 @@ export default function App() {
   const browserRouter = createBrowserRouter(
     [
       {
-        path: '/',
+        path: '/mobicompro',
         element: <Home />,
         // loader: loadUserAndPets,
         // hydrateFallbackElement: <p>Loading Pets...</p>
