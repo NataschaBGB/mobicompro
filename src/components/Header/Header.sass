@@ -1,0 +1,22 @@
+@use '../../style/variables' as var
+    
+.header
+    position: relative
+    padding: 2rem 1rem
+    &__burger-menu
+        position: absolute
+        top: 50%
+        left: 1rem
+        transform: translateY(-50%)
+        color: var.$header-burger-menu-color
+        .line
+            background-color: var.$header-burger-menu-color
+            height: 3px
+            border-radius: 2px
+            width: 30px
+            margin: 5px
+    &__title
+        color: var.$primary-title-color
+        text-align: center
+        font-size: 1.5rem
+        font-weight: 100

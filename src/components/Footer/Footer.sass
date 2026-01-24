@@ -1,0 +1,19 @@
+@use '../../style/variables' as var
+    
+    
+.footer
+    padding: 2rem
+    position: fixed
+    bottom: 0
+    width: 100%
+    display: flex
+    justify-content: space-between
+        
+    &__navigation-icon
+        height: 30px
+        width: 30px
+        color: var.$footer-icon-color
+        font-size: 28px
+
+    &__navigation-icon--active
+        color: var.$footer-icon-color-active
