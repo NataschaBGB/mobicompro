@@ -33,7 +33,7 @@ export default function Footer() {
                 <TiThermometer />
             </NavLink>
 
-            <NavLink to="*" 
+            <NavLink to="/light"
                 className={({ isActive }) =>
                     `footer__navigation-icon ${isActive ? "footer__navigation-icon--active" : ""}`
                 }>

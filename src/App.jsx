@@ -3,8 +3,9 @@ import Home from './pages/Home';
 import Thermostat from './pages/Thermostat';
 import Statistics from './pages/Statistics';
 import Error from './pages/Error';
-import './style/_layout.sass'
 import Heat from './pages/Heat';
+import Light from './pages/Light';
+import './style/_layout.sass'
 
 
 export default function App() {
@@ -30,6 +31,10 @@ export default function App() {
       {
         path: '/heat',
         element: <Heat />
+      },
+      {
+        path: '/light',
+        element: <Light />
       },
       {
         path: '*',
