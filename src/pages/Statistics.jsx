@@ -6,7 +6,7 @@ export default function Statistics() {
     return (
         <section className="statistics-page">
         
-            <Header showBurgerMenu={false} showBackButton={false} showOptions={true} title="Statistics" />
+            <Header showBurgerMenu={false} showBackButton={false} showOptions={true} title="Statistik" />
 
             <main className="statistics">
                 <h2>Statistics Page</h2>
