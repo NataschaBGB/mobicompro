@@ -1,23 +1,79 @@
 @use '../../style/variables' as var
     
 .header
-    position: relative
+    display: grid
+    grid-template-columns: 30px 1fr 30px
+    grid-template-rows: 1fr
+    align-items: center
     padding: 2rem 1rem
     background-color: var.$body-color
+    
     &__burger-menu
-        position: absolute
-        top: 50%
-        left: 1rem
-        transform: translateY(-50%)
-        color: var.$header-burger-menu-color
+        grid-column: 1 / 2
+        grid-row: 1 / 2
+        color: var.$header-icon-color
+        position: relative
+        height: 28px
         .line
-            background-color: var.$header-burger-menu-color
+            position: absolute
+            left: 0
+            background-color: var.$header-icon-color
             height: 3px
             border-radius: 2px
             width: 30px
-            margin: 5px
+            transition: .5s ease-in-out
+        // position lines in burger menu
+        .line-1
+            top: 5px
+        .line-2
+            top: 13px
+        .line-3
+            top: 21px
+        // Open burger menu
+        &--active
+            // change lines to cross
+            // line-1 and line-3 should move to the center of the burger menu and rotate
+            .line-1
+                top: 13px
+                transform: rotate(45deg)
+            // line-2 should disappear
+            .line-2
+                opacity: 0
+            .line-3
+                top: 13px
+                transform: rotate(-45deg)
+
+    &__nav
+        display: none
+        transition: .5s ease-in-out
+        &--active
+            display: flex
+            flex-direction: column
+            position: absolute
+            top: 100px
+            left: 0
+            width: 100%
+            background-color: #FFFFFF
+            padding: 1rem
+
+    &__back
+        grid-column: 1 / 2
+        grid-row: 1 / 2
+        font-size: 28px
+        color: var.$header-icon-color
+        justify-self: flex-start
+
     &__title
+        grid-column: 2 / 3
+        grid-row: 1 / 2
         color: var.$primary-title-color
         text-align: center
-        font-size: 1.5rem
-        font-weight: 100
+        font-size: 24px
+        font-weight: 400
+    
+    &__options
+        grid-column: 3 / 4
+        grid-row: 1 / 2
+        font-size: 28px
+        color: var.$header-icon-color
+        justify-self: flex-end
