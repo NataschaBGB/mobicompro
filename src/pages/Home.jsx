@@ -1,4 +1,4 @@
-import Footer from "../components/Footer/Footer";
+import Navigation from "../components/Navigation/Navigation";
 import Header from "../components/Header/Header";
 import '../style/_layout.sass'
 
@@ -8,13 +8,13 @@ export default function Home() {
     return (
         <section className="home-page">
 
-            <Header />
+            <Header showBurgerMenu={true} showBackButton={false} showOptions={false} title="Home" />
 
             <main className="home">
                 <h2>Welcome to the Smart Home App</h2>
             </main>
 
-            <Footer />
+            <Navigation />
 
         </section>
     )

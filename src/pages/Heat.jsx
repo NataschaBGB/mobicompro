@@ -1,4 +1,4 @@
-import Footer from "../components/Footer/Footer";
+import Navigation from "../components/Navigation/Navigation";
 import Header from "../components/Header/Header";
 
 export default function Heat() {
@@ -6,13 +6,13 @@ export default function Heat() {
     return (
         <section className="heat-page">
 
-            <Header />
+            <Header showBurgerMenu={false} showBackButton={true} showOptions={true} title="Heat" />
     
             <main className="heat">
                 <h2>Heat Page</h2>
             </main>
     
-            <Footer />
+            <Navigation />
     
         </section>
     )
