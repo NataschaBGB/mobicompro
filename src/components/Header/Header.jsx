@@ -1,44 +1,47 @@
+import { NavLink } from "react-router";
 import { IoIosArrowBack } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
-
 import './Header.sass'
 
 
-// Home:
-//      Show burgermenu
-
-// Statistics:
-//      Hide burgermenu
-//      Show 3 horizontal dots on the right side of the header
-
-// Heat:
-//      Hide burgermenu
-//      Show back button on the left side of the header
-//      Show 3 horizontal dots on the right side of the header
-
-
 export default function Header({ showBurgerMenu, showBackButton, showOptions, title }) {
-    
+
+    // on click on burger menu - open navigation
+    const toggleMenu = (event) => {
+        event.currentTarget.classList.toggle('header__burger-menu--active');
+        const nav = document.querySelector('.header__nav');
+        nav.classList.toggle('header__nav--active');
+    };
+
+
     return (
         <header className="header">
-            {/* set as variable so it can be conditionally rendered */}
-            {/* if true, show on page, if false, hide */}
-            <section className="header__burger-menu" style={{ display: showBurgerMenu ? 'block' : 'none' }}>
+            {/* style: if showBurgerMenu is set to true - show icon in header */}
+            {/* if showBurgerMenu is set to false - hide icon in header */}
+            <section className="header__burger-menu" style={{ visibility: showBurgerMenu ? 'visible' : 'hidden' }} onClick={toggleMenu}>
                 <div className="line line-1"></div>
                 <div className="line line-2"></div>
                 <div className="line line-3"></div>
             </section>
 
-            {/* set as variable so it can be conditionally rendered */}
-            <section className='header__back' style={{ display: showBackButton ? 'block' : 'none' }}>
+            <nav className="header__nav">
+                <a href="#">Smart Home</a>
+                <a href="#">Statistik</a>
+                <a href="#">Varme</a>
+            </nav>
+
+            {/* style: if showBackButton is set to true - show icon in header */}
+            {/* if showBackButton is set to false - hide icon in header */}
+            <NavLink to="/mobicompro" className='header__back' style={{ visibility: showBackButton ? 'visible' : 'hidden' }}>
                 <IoIosArrowBack />
-            </section>
+            </NavLink>
 
             {/* set title to variable that can be changed on each page */}
             <h1 className="header__title">{title}</h1>
 
-            {/* set as variable that can be conditionally rendered */}
-            <section className="header__options" style={{ display: showOptions ? 'block' : 'none' }}>
+            {/* style: if showOptions is set to true - show icon in header */}
+            {/* if showOptions is set to false - hide icon in header */}
+            <section className="header__options" style={{ visibility: showOptions ? 'visible' : 'hidden' }}>
                 <BsThreeDotsVertical />
             </section>
         </header>

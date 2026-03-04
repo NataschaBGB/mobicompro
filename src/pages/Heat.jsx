@@ -6,7 +6,7 @@ export default function Heat() {
     return (
         <section className="heat-page">
 
-            <Header showBurgerMenu={false} showBackButton={true} showOptions={true} title="Heat" />
+            <Header showBurgerMenu={false} showBackButton={true} showOptions={true} title="Varme" />
     
             <main className="heat">
                 <h2>Heat Page</h2>

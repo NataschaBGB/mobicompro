@@ -2,7 +2,7 @@ import { NavLink } from 'react-router'
 import { BsGrid } from "react-icons/bs"
 import { PiPulse } from "react-icons/pi"
 import { TiThermometer } from "react-icons/ti";
-import { TbCaretUpDown } from "react-icons/tb";
+import { PiCaretUpDownDuotone } from "react-icons/pi";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import './Navigation.sass'
 
@@ -17,29 +17,32 @@ export default function Navigation() {
                     `navigation__navigation-icon ${isActive ? "navigation__navigation-icon--active" : ""}`
                 }
                 end >
-                <BsGrid />
+                <BsGrid className='icon' />
             </NavLink>
 
             <NavLink to="/statistics" 
                 className={({ isActive }) =>
                     `navigation__navigation-icon ${isActive ? "navigation__navigation-icon--active" : ""}`
                 }>
-                <PiPulse />
+                <PiPulse className='icon' />
             </NavLink>
 
             <NavLink to="/heat" 
                 className={({ isActive }) =>
                     `navigation__navigation-icon ${isActive ? "navigation__navigation-icon--active" : ""}`
                 }>
-                <TiThermometer />
-                <TbCaretUpDown />
+                <div className='double-icons'>
+                    <TiThermometer className='icon'/>
+                    <PiCaretUpDownDuotone className='icon' />
+                </div>
+                
             </NavLink>
 
             <NavLink to="/light"
                 className={({ isActive }) =>
                     `navigation__navigation-icon ${isActive ? "navigation__navigation-icon--active" : ""}`
                 }>
-                <HiOutlineLightBulb />
+                <HiOutlineLightBulb className='icon' />
             </NavLink>
 
         </nav>
