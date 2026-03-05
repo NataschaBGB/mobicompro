@@ -8,7 +8,10 @@ export default function Header({ showBurgerMenu, showBackButton, showOptions, ti
 
     // on click on burger menu - open navigation
     const toggleMenu = (event) => {
+        // toggle class on burger menu to animate it
         event.currentTarget.classList.toggle('header__burger-menu--active');
+
+        // get nav element and toggle class to show/hide it
         const nav = document.querySelector('.header__nav');
         nav.classList.toggle('header__nav--active');
     };
