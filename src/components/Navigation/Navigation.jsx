@@ -12,7 +12,7 @@ export default function Navigation() {
     return (
         <nav className="navigation">
 
-            <NavLink to="/mobicompro" 
+            <NavLink to="/mobicompro/" 
                 className={({ isActive }) =>
                     `navigation__navigation-icon ${isActive ? "navigation__navigation-icon--active" : ""}`
                 }

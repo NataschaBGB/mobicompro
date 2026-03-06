@@ -14,7 +14,7 @@ export default function App() {
   const browserRouter = createBrowserRouter(
     [
       {
-        path: '/mobicompro',
+        path: '/mobicompro/',
         element: <Home />,
         loader: devicesLoader,
         hydrateFallbackElement: <p>Finder dine devices...</p>
