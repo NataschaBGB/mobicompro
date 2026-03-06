@@ -1,6 +1,7 @@
 import Navigation from "../components/Navigation/Navigation";
 import Header from "../components/Header/Header";
 import '../style/_layout.sass'
+import SmartSettings from "../components/SmartSettings/SmartSettings";
 
 
 export default function Home() {
@@ -11,7 +12,9 @@ export default function Home() {
             <Header showBurgerMenu={true} showBackButton={false} showOptions={false} title="Smart Home" />
 
             <main className="home">
-                <h2>Welcome to the Smart Home App</h2>
+
+                <SmartSettings />
+
             </main>
 
             <Navigation />

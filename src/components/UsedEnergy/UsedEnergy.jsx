@@ -7,7 +7,7 @@ export default function UsedEnergy() {
         <section className="used-energy">
             <h2>Energi Forbrug</h2>
             {/* component with energy consumption data (from api?) */}
-            {/* icon links to statistics page */}
+            {/* statistics icon - LINKS TO STATISTICS PAGE */}
         </section>
     )
 
