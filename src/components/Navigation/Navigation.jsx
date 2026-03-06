@@ -27,7 +27,7 @@ export default function Navigation() {
                 <PiPulse className='icon' />
             </NavLink>
 
-            <NavLink to="/heat" 
+            <NavLink to="/thermostat" 
                 className={({ isActive }) =>
                     `navigation__navigation-icon ${isActive ? "navigation__navigation-icon--active" : ""}`
                 }>

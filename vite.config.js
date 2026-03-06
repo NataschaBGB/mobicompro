@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   base: "/mobicompro",
   plugins: [react()],
@@ -9,4 +8,13 @@ export default defineConfig({
     outDir: 'docs',
     emptyOutDir: true
   },
+  // server: {
+  //   proxy: {
+  //     '/api': {
+  //       target: 'https://exercise.mobicom-pro.com',
+  //       changeOrigin: true,
+  //       secure: false
+  //     }
+  //   }
+  // }
 })

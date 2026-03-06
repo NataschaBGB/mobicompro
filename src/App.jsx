@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import Home from './pages/Home';
+import devicesLoader from './loaders/devicesLoader';
 import Thermostat from './pages/Thermostat';
 import Statistics from './pages/Statistics';
 import Error from './pages/Error';
@@ -15,8 +16,8 @@ export default function App() {
       {
         path: '/mobicompro',
         element: <Home />,
-        // loader: loadUserAndPets,
-        // hydrateFallbackElement: <p>Loading Pets...</p>
+        loader: devicesLoader,
+        hydrateFallbackElement: <p>Finder dine devices...</p>
       },
       {
         path: '/thermostat',
