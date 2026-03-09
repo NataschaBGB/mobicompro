@@ -1,9 +1,15 @@
-// not active:
-// not active: icon = $icon-color
-// not active: name = $icon-color
-// not active: background color = $button-color
-            
-// active class: active
-// active: icon = $icon-color-active
-// active: name = $icon-color-active
-// active: background color = $button-color-active
+@use '../../style/_variables' as var;
+    
+.preset
+    margin: 0 0 2rem
+
+    &__title
+        font-size: 16px
+        font-weight: 400
+        margin: 0 0 .5rem .5rem
+        color: var.$primary-title-color
+
+    &__settings
+        display: flex
+        align-items: center
+        gap: 20px

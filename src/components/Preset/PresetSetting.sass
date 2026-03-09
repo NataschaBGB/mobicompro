@@ -1,0 +1,24 @@
+@use '../../style/_variables' as var;
+    
+.setting
+    display: flex
+    align-items: center
+    gap: 10px
+    width: 100%
+    padding: 10px
+    background-color: var.$box-bg-color
+    box-shadow: 0px 0px 12px -2px var.$box-shadow-color
+    border-radius: 10px
+    .icon
+        font-size: 28px
+        color: var.$primary-icon-color
+    p
+        font-size: 12px
+        color: var.$primary-text-color
+        
+    &--active
+        background-color: var.$box-bg-color-active
+        .icon
+            color: var.$secondary-icon-color
+        p
+            color: var.$secondary-icon-color
