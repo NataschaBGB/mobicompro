@@ -41,10 +41,7 @@ export default function App() {
         path: '*',
         element: <Error />
       }
-    ],
-    {
-      basename: ""
-    }
+    ]
   );
 
   return (
