@@ -1,13 +1,11 @@
 import { useLoaderData } from "react-router";
-import Navigation from "../components/Navigation/Navigation";
 import Header from "../components/Header/Header";
 
 
 export default function Heat() {
 
-    const API_TOKEN = import.meta.env.VITE_MOBICOM_API_TOKEN;
-
-    const decives = useLoaderData();
+    const devices = useLoaderData();
+    console.log("devices", devices);
 
     
     return (
@@ -19,9 +17,63 @@ export default function Heat() {
                 {devices && devices.length > 0 ? (
                     devices.map((device) => (
                     <div key={device.id}>
-                        <h2>{device.name}</h2>
-                        <p>Type: {device.type}</p>
-                        <p>Status: {device.status}</p>
+
+                        <section>
+                            <h2>{device.name}</h2>
+                            <div>
+                                slider for target temp
+                                <p>{device.target_temp}</p>
+                                <p>Termostat</p>
+                            </div>
+                            <div>
+                                <div>
+                                    sky icon
+                                    get outside temp from the weather now
+                                    Udetemperatur
+                                </div>
+                                <div>
+                                    thermometer icon
+                                    get inside temp from api
+                                    Indetemperatur
+                                </div>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2>Ventilator</h2>
+                            <div>
+                                vent icon
+                                <div>
+                                    vent strength slider from api (6 boxes - 0 er slukket)
+                                    ved klik på en box opdateres værdien i api
+                                </div>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h2>Mode</h2>
+                            <div>
+                                <button>
+                                    Manuel icon
+                                    "Manuel"
+                                </button>
+                                <button>
+                                    Tidsplan icon
+                                    "Tidsplan"
+                                </button>
+                                <button>
+                                    Boost icon
+                                    "Boost"
+                                </button>
+                            </div>
+                        </section>
+
+                        <button>
+                            on/off icon
+                            on/off state from api
+                            ved klik opdateres værdien i api
+                        </button>
+
                     </div>
                 ))
                 ) : (
@@ -45,8 +97,6 @@ export default function Heat() {
                 {/* when changing something on the heat page, update the info in API with PUT request */}
                 {/* take values from inputs and insert into database via API */}
             </main>
-    
-            <Navigation />
     
         </section>
     )
