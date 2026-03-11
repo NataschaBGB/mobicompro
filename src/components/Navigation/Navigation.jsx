@@ -20,14 +20,14 @@ export default function Navigation() {
                 <BsGrid className='icon' />
             </NavLink>
 
-            <NavLink to="/statistics" 
+            <NavLink to="/mobicompro/statistics" 
                 className={({ isActive }) =>
                     `navigation__navigation-icon ${isActive ? "navigation__navigation-icon--active" : ""}`
                 }>
                 <PiPulse className='icon' />
             </NavLink>
 
-            <NavLink to="/thermostat" 
+            <NavLink to="/mobicompro/thermostat" 
                 className={({ isActive }) =>
                     `navigation__navigation-icon ${isActive ? "navigation__navigation-icon--active" : ""}`
                 }>
@@ -38,7 +38,7 @@ export default function Navigation() {
                 
             </NavLink>
 
-            <NavLink to="/light"
+            <NavLink to="/mobicompro/light"
                 className={({ isActive }) =>
                     `navigation__navigation-icon ${isActive ? "navigation__navigation-icon--active" : ""}`
                 }>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router";
 import Navigation from "../components/Navigation/Navigation";
 import Header from "../components/Header/Header";
 
@@ -7,24 +7,8 @@ export default function Heat() {
 
     const API_TOKEN = import.meta.env.VITE_MOBICOM_API_TOKEN;
 
-    const [heatData, setHeatData] = useState([]);
+    const decives = useLoaderData();
 
-    useEffect(() => {
-        fetch('https://exercise.mobicom-pro.com/api/devices', {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${API_TOKEN}`
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            setHeatData(data);
-            console.log("data", data);
-        })
-        .catch(err => console.error(err));
-    }, []);
     
     return (
         <section className="heat-page">
@@ -32,7 +16,20 @@ export default function Heat() {
             <Header showBurgerMenu={false} showBackButton={true} showOptions={true} title="Varme" />
     
             <main className="heat">
-                <h2>Heat Page</h2>
+                {devices && devices.length > 0 ? (
+                    devices.map((device) => (
+                    <div key={device.id}>
+                        <h2>{device.name}</h2>
+                        <p>Type: {device.type}</p>
+                        <p>Status: {device.status}</p>
+                    </div>
+                ))
+                ) : (
+                    <section className="heat__no-devices">
+                    <h3>Ingen data blev fundet for dette device</h3>
+                    </section>
+                )}
+                
                 {/* Temperature can be changed on slider - fetch value from api 
                     | PUT updates the value */}
                 {/* Temperatures inside and outside - fetch value from api */}

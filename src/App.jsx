@@ -15,26 +15,26 @@ export default function App() {
     [
       {
         path: '/mobicompro/',
-        element: <Home />,
+        element: <Home />
+      },
+      {
+        path: '/mobicompro/thermostat',
+        element: <Thermostat />
+      },
+      {
+        path: '/mobicompro/statistics',
+        element: <Statistics />,
+        // loader: devicesLoader,
+        // hydrateFallbackElement: <p>Finder dine devices...</p>
+      },
+      {
+        path: '/mobicompro/heat',
+        element: <Heat />,
         loader: devicesLoader,
         hydrateFallbackElement: <p>Finder dine devices...</p>
       },
       {
-        path: '/thermostat',
-        element: <Thermostat />
-      },
-      {
-        path: '/statistics',
-        element: <Statistics />,
-        // loader: loadDetails,
-        // hydrateFallbackElement: <p>Loading Details...</p>
-      },
-      {
-        path: '/heat',
-        element: <Heat />
-      },
-      {
-        path: '/light',
+        path: '/mobicompro/light',
         element: <Light />
       },
       {
@@ -43,7 +43,7 @@ export default function App() {
       }
     ],
     {
-      basename: ""
+      basename: "/mobicompro/"
     }
   );
 
