@@ -94,7 +94,7 @@ export const heat_livingroom = [
         ],
         degrees: 22,
         mode: "Manuel",
-        link: "/heat",
+        link: "/mobicompro/heat",
     }
 ]
 
