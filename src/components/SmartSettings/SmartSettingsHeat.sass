@@ -1,0 +1,81 @@
+@use '../../style/_variables' as var;
+
+    
+.smart-settings-heat
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    height: 100%
+    
+    &__label
+        display: flex
+        justify-content: space-between
+        align-items: center
+        font-size: 12px
+        font-weight: 400
+        color: var.$primary-text-color
+
+        .toggle-area
+            width: 45px
+            height: 24px
+            background-color: var.$button-color-off
+            border-radius: 20px
+            border: none
+            position: relative
+            cursor: pointer
+            transition: background 0.25s
+
+            &--on
+                background-color: var.$button-color-active
+                .toggle-area__circle
+                    transform: translateX(21px)
+
+        .toggle-area__circle
+            position: absolute
+            top: 3px
+            left: 3px
+            width: 18px
+            height: 18px
+            background-color: var.$button-color
+            border-radius: 50%
+            transition: transform .5s
+
+    &__temperature
+        display: flex
+        align-items: center
+        gap: 20px
+        margin: 10px 0 20px
+
+        .icon
+            color: var.$primary-icon-color
+            padding: 5px
+            font-size: 40px
+            border-radius: 10px
+
+        .temperature-info
+            display: flex
+            flex-direction: column
+
+            .degrees
+                font-size: 20px
+                color: var.$primary-title-color
+
+            .mode
+                font-size: 12px
+                color: var.$primary-text-color
+
+    &__link
+        display: grid
+        grid-template-columns: 30px 1fr
+        align-items: center
+        background-color: var.$secondary-icon-bg-color
+        color: var.$secondary-icon-color
+        padding: 5px
+        border-radius: 10px
+        font-size: 12px
+        text-decoration: none
+
+        .icon
+            font-size: 30px
+        p
+            text-align: center
