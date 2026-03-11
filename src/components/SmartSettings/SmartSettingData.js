@@ -2,25 +2,26 @@
 // It contains the title of the section and the items that should be shown in that section.
 // Each item has an id and a label. The id is used to keep track of the state of each item (whether it's on or off) and the label is what is shown to the user.
 
-export const livingRoomLight = [
+
+export const light_livingroom = [
     
     {
         title: "Lys i Stuen",
         items: [
             { 
-                id: "allLights",
+                id: "light_livingroom_allLights",
                 label: "Alt Lys"
             },
             { 
-                id: "livingRoomCeilingLight",
+                id: "light_livingroom_ceilingLight",
                 label: "Loftlampe"
             },
             {
-                id: "tableLamp1",
+                id: "light_livingroom_tableLamp1",
                 label: "Bordlampe 1"
             },
             {
-                id: "tableLamp2",
+                id: "light_livingroom_tableLamp2",
                 label: "Bordlampe 2"
             },
         ]
@@ -29,16 +30,16 @@ export const livingRoomLight = [
 ];
 
 // If we want to add a section with more than one title, we can do it like this:
-export const kitchenLight = [
+export const light_kitchen = [
     {
         title: "Lys i Køkken",
         items: [
             {
-                id: "kitchenTable",
+                id: "light_kitchen_table",
                 label: "Køkkenbord"
             },
             {
-                id: "kitchenCeilingLight",
+                id: "light_kitchen_ceilingLight",
                 label: "Loftlampe"
             }
         ]
@@ -47,9 +48,82 @@ export const kitchenLight = [
         title: "Varme i Køkken",
         items: [
             {
-                id: "kitcenFanCoil",
+                id: "heat_kitchen_fanCoil",
                 label: "Fan Coil"
             }
         ]
+    }
+]
+
+export const light_driveway = [
+    {
+        title: "Lys i Indkørsel",
+        items: [
+            {
+                id: "light_driveway_wallLamps",
+                label: "Væglamper"
+            },
+            {
+                id: "light_driveway_Bedlamps",
+                label: "Bedlamper"
+            }
+        ]
+    },
+    {
+        title: "Lys i Garage",
+        items: [
+            {
+                id: "light_garage_allLight",
+                label: "Alt lys"
+            }
+        ]
+    }
+]
+
+
+
+
+export const heat_livingroom = [
+    {
+        title: "Varme i Stuen",
+        items: [
+            {
+                id: "heat_livingroom_fan_coil",
+                label: "Fan Coil"
+            },
+        ],
+        degrees: 22,
+        mode: "Manuel",
+        link: "/heat",
+    }
+]
+
+export const heat_bedroom = [
+    {
+        title: "Varme i Soveværelse",
+        items: [
+            {
+                id: "heat_bedroom_radiator",
+                label: "Radiator"
+            },
+        ],
+        degrees: 17,
+        mode: "Tidsplan",
+        link: "/mobicompro/",
+    }
+]
+
+export const heat_bathroom = [
+    {
+        title: "Varme i Badeværelse",
+        items: [
+            {
+                id: "heat_bathroom_floor",
+                label: "Gulvvarme"
+            },
+        ],
+        degrees: 21,
+        mode: "Tidsplan",
+        link: "/mobicompro/",
     }
 ]
