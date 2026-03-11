@@ -1,35 +1,20 @@
 import { useState, useEffect } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 import PresetSetting from "./PresetSetting";
 import { PresetData } from "./PresetData";
 import './Preset.sass'
 
 
+
 export default function Preset() {
 
-    // useState is used to save data in the component.
-    // in this we save which presets are active.
-    // Example on how data in activeSettings looks like:
-    // {
-    //     home: true,
-    //     away: false,
-    //     sleep: true
-    // }
-    const [activeSettings, setActiveSettings] = useState(() => {
-
-        // check localStorage to see if there are saved settings
-        const saved = localStorage.getItem("presetSettings");
-
-        // if there is saved data:
-        // convert it from text to a JavaScript object, so we can map through it to show the presets as active or not.
-        // if there is no saved data:
-        // start with an empty object
-        return saved ? JSON.parse(saved) : {};
-    });
-
+    // activeSettings is an object that contains the current state of each preset (home, away, sleep)
+    // setActiveSettings is the function to change the state of each preset
+    // useLocalStorage is a custom hook that we made to save the state in local storage, so when user refreshes the page, they don't lose their settings
+    const [activeSettings, setActiveSettings] = useLocalStorage("presetSettings", {});
 
     // when user clicks on a preset, we want to change whether it's active or not.
     const toggleActive = (id) => {
-
         // setActiveSettings updates the state
         setActiveSettings(prev => ({
             // ...prev keeps all previous values, so if we change "home" to true, we still keep the value of "away" and "sleep"
@@ -42,19 +27,6 @@ export default function Preset() {
             [id]: !prev[id]
         }));
     };
-
-
-    // useEffect runs automatically every time activeSettings changes
-    useEffect(() => {
-
-        // when the user clicks a preset, save the new value(s) in localStorage
-        localStorage.setItem(
-            "presetSettings",
-            JSON.stringify(activeSettings)
-        );
-
-        // set activeSettings in localStorage to the value of activeSettings in this component, but convert it to text first, because localStorage can only save text.
-    }, [activeSettings]);
 
 
     return (

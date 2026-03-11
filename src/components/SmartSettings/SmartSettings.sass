@@ -1,7 +1,44 @@
-// SmartSettings light component - on/off sliders
-// off: 
-//      dot color = $button-color
-//      bg-color = $button-color-off
-// on:
-//      dot color = $button-color
-//      bg-color = $button-color-active
+@use '../../style/_variables' as var;
+    
+.smart-settings
+    padding: 0 0 10px
+
+    &__title
+        font-size: 16px
+        font-weight: 400
+        margin: 0 0 15px 10px
+        color: var.$primary-title-color
+
+    &__settings
+        display: grid
+        grid-template-columns: 1fr 1fr
+        // display: flex
+        overflow: auto
+        gap: 10px
+        height: 30vh
+        margin: 0 -10px
+        &::-webkit-scrollbar
+            display: none
+
+    &__light, &__heat
+        display: flex
+        flex-direction: column
+        align-items: center
+        width: 100%
+        gap: 10px
+    &__light
+        padding: 0 0 0 10px
+    &__heat
+        padding: 0 10px 0 0
+
+    &__light .light-article, &__heat .light-article
+        padding: 10px
+        background-color: var.$box-bg-color
+        box-shadow: 0px 0px 12px -2px var.$box-shadow-color
+        border-radius: 10px
+        height: 200px
+        width: 100%
+        .light-article-box-title
+            font-size: 14px
+            color: var.$primary-title-color
+            margin: 0 0 20px
