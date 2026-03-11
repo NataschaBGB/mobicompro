@@ -1,0 +1,40 @@
+@use '../../style/_variables' as var;
+
+    
+.smart-settings-light
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin: 0 0 10px
+
+    &__label
+        font-size: 14px
+        font-weight: 400
+        color: var.$primary-title-color
+        &:last-of-type
+            margin: 0
+
+    .toggle-area
+        width: 45px
+        height: 24px
+        background-color: var.$button-color-off
+        border-radius: 20px
+        border: none
+        position: relative
+        cursor: pointer
+        transition: background 0.25s
+
+        &--on
+            background-color: var.$button-color-active
+            .toggle-area__circle
+                transform: translateX(21px)
+
+    .toggle-area__circle
+        position: absolute
+        top: 3px
+        left: 3px
+        width: 18px
+        height: 18px
+        background-color: var.$button-color
+        border-radius: 50%
+        transition: transform .5s

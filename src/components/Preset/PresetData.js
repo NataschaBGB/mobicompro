@@ -1,20 +1,10 @@
-// Vi importerer de ikoner vi vil bruge til vores presets
+// import icons from react-icons to show different icons for each preset
 import { BsHouseCheck, BsHouseSlash } from "react-icons/bs";
 import { GiNightSleep } from "react-icons/gi";
 
-/*
-Denne liste indeholder alle de presets som appen skal vise.
 
-Hver preset består af:
-- id → et unikt navn som koden bruger
-- label → den tekst brugeren ser
-- icon → hvilket ikon der vises
-
-Fordelen ved at samle dem her er,
-at vi kun skal ændre ét sted hvis vi vil
-tilføje eller ændre en preset.
-*/
-
+// List of presets that we want to show in the app
+// if we want to add more presets, we just need to add more objects to this list
 export const PresetData = [
     {
         id: "home",

@@ -1,40 +1,22 @@
 import './PresetSetting.sass';
 
 
+// This component is a 'box' that shows the preset (home, away, sleep) and whether it's active or not. When you click on it, it changes whether it's active or not.
 export default function PresetSetting({ label, Icon, isActive, onClick }) {
 
-    /*
-    Denne komponent modtager information fra sin "forælder".
-
-    label → teksten der vises
-    Icon → hvilket ikon der vises
-    isActive → om preset er aktiv eller ej
-    onClick → hvad der skal ske når man klikker
-    */
-
+    // it returns a div with the class "setting".
+    // If the preset is active, it also adds the class "setting--active".
+    // When you click on it, it calls the onClick function that was sent in via props.
     return (
         <div
-            /*
-            Her bestemmer vi hvilken CSS class elementet skal have.
-
-            Hvis preset er aktiv:
-            setting setting--active
-
-            Hvis den ikke er aktiv:
-            setting
-            */
+            // it can see if preset is active from props, which gets its value from the Preset.jsx file, where we send isActice={activeSettings[setting.id]}
             className={`setting ${isActive ? "setting--active" : ""}`}
 
-            /*
-            Når brugeren klikker,
-            kaldes den funktion der blev sendt ind via props.
-            */
+            // when clicking, the function in Preset.jsx gets send in via props
             onClick={onClick}
         >
-            {/* Viser ikonet */}
             <Icon className="icon" />
 
-            {/* Viser teksten */}
             <p>{label}</p>
         </div>
     );
