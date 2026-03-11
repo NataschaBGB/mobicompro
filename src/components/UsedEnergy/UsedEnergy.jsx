@@ -19,7 +19,7 @@ export default function UsedEnergy() {
             <section className="used-energy__statistics">
 
                 <div className="used-energy__today">
-                    <NavLink to="/statistics">
+                    <NavLink to="/mobicompro/statistics">
                         <PiPulse className='icon' />
                     </NavLink>
                     {/* use localstorage to get todays date from statistics page and display here */}
