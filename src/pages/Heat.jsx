@@ -1,12 +1,13 @@
 import { useLoaderData } from "react-router";
 import Header from "../components/Header/Header";
 import HeatMode from "../components/HeatMode/HeatMode";
+// import HeatVent from "../components/HeatVent/HeatVent";
 
 
 export default function Heat() {
 
     const devices = useLoaderData();
-    console.log("devices", devices);
+    // console.log("devices", devices);
 
     
     return (
@@ -42,20 +43,7 @@ export default function Heat() {
                             </div>
                         </section>
 
-                        <section className="heat__vent">
-                            <h2>Ventilator</h2>
-                            <div className="vent-strength">
-                                vent icon
-                                <div className="vent-strength-value">
-                                    {/* if vent level = 0
-                                        no boxes have color
-                                    if vent level = 3
-                                        3 first boxes have color
-                                    on click on a box (click on box 2)
-                                        set vent level to 2 in api */}
-                                </div>
-                            </div>
-                        </section>
+                        {/* <HeatVent device={device} /> */}
 
                         <HeatMode device={device} />
 
