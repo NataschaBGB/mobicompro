@@ -1,0 +1,88 @@
+import { useState, useEffect } from "react";
+
+
+export default function useHeatDevice(device) {
+    
+    // mode = current mode to show as active mode
+    // setMode = function to change mode
+    // useState(device.work_mode) = initial value of mode is the current work_mode of the device, so when we open the heat mode page, it shows the correct active mode based on the device's current work_mode
+    const [ventLevel, setVentLevel] = useState(device.vent_level);
+    const [mode, setMode] = useState(device.work_mode);
+
+    // get the bearer token to access the api
+    const API_TOKEN = import.meta.env.VITE_MOBICOM_API_TOKEN;
+
+    // Sync mode hvis device.work_mode ændrer sig
+    // useEffect makes sure that every time device.work_mode changes, we update our local mode state to match it, so if the device's mode is changed from somewhere else in the app, it will still show the correct active mode when we open the heat mode page
+    useEffect(() => {
+        setMode(device.work_mode);
+        setVentLevel(device.vent_level);
+    }, [device.work_mode, device.vent_level]);
+
+    // updateDevice function to change the work_mode and/or vent_level of the device, takes in the new mode/new vent level as an argument
+    const updateDevice = async (newMode, newVentLevel) => {
+
+        // save previous level and mode in case the update fails
+        const previousVent = ventLevel;
+        const previousMode = mode;
+
+        // set the new level and mode optimistically, so the UI updates immediately when we click on a button, and if the API call fails, we can revert back to the previous level and mode
+        setMode(newMode);
+        setVentLevel(newVentLevel);
+
+        try {
+
+            const response = await fetch(
+                `https://exercise.mobicom-pro.com/api/devices/${device.id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${API_TOKEN}`
+                    },
+                    body: JSON.stringify({
+                        name: device.name,
+                        target_temp: device.target_temp,
+                        vent_level: newVentLevel,
+                        work_mode: newMode
+                    })
+                }
+            );
+
+            // if response is not ok, throw an error to be caught in the catch block
+            if (!response.ok) throw new Error("Failed to update device");
+
+        }
+        catch (error) {
+            // if an error has been thrown, revert back to the previous level and mode, so the UI shows the correct active mode and vent level, since the update failed and the mode and vent level in the API has not been changed
+            setMode(previousMode);
+            setVentLevel(previousVent);
+            console.error(error);
+
+        }
+    };
+
+    // functions to call when we click on a mode button or vent level button
+    // takes in the new mode/new vent level as an argument, and calls updateDevice with the new mode/new vent level to update it in the API
+    const updateMode = (newMode) => {
+        // if the newMode/the clicked button's mode is the same as the current active mode, we don't need to do anything, so we return early and don't call updateDevice, to avoid making an unnecessary API call and updating the state to the same value, which would cause a re-render without any actual change
+        if (newMode === mode) return;
+        // if the newMode is different from the current mode, we call updateDevice with the new mode and the current vent level, since we only want to update the mode in this case, and keep the vent level the same, so we pass in the current vent level as the second argument to updateDevice, to avoid changing the vent level when we only want to change the mode
+        updateDevice(newMode, ventLevel);
+    };
+
+    const updateVentLevel = (newVent) => {
+        if (newVent === ventLevel) return;
+        updateDevice(mode, newVent);
+    };
+
+    // return mode, ventLevel, updateMode and updateVentLevel to use in HeatMode.jsx
+    return {
+        mode,
+        ventLevel,
+        updateMode,
+        updateVentLevel
+    };
+
+}
