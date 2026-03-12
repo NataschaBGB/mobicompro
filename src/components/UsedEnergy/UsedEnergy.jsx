@@ -22,7 +22,8 @@ export default function UsedEnergy() {
                     <NavLink to="/mobicompro/statistics">
                         <PiPulse className='icon' />
                     </NavLink>
-                    {/* use localstorage to get todays date from statistics page and display here */}
+                    {/* get todays date from https://exercise.mobicom-pro.com/api/weather */}
+                    {/* weather.timestamp */}
                     <p className="date">{formattedDate}</p>
                 </div>
                 

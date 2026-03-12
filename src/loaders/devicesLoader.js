@@ -2,6 +2,9 @@ export default async function devicesLoader() {
 
     const API_TOKEN = import.meta.env.VITE_MOBICOM_API_TOKEN;
 
+    // weather api
+    // https://exercise.mobicom-pro.com/api/weather
+
     const response = await fetch('https://exercise.mobicom-pro.com/api/devices', {
         method: "GET",
         headers: {
