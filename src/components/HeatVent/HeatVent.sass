@@ -1,0 +1,44 @@
+@use '../../style/_variables' as var;
+    
+    
+.heat-vent
+    margin: 40px 0
+
+    &__title
+        font-size: 16px
+        color: var.$primary-title-color
+        font-weight: 400
+        margin: 0 0 15px 10px
+
+    &__strength
+        display: flex
+        align-items: center
+        gap: 15px
+        width: 100%
+        background-color: var.$box-bg-color
+        padding: 20px
+        border-radius: 10px
+        box-shadow: 0px 0px 12px -2px var.$box-shadow-color
+
+        .icon
+            font-size: 40px
+            color: var.$primary-icon-color
+
+    &__buttons
+        display: flex
+        gap: 5px
+        width: 100%
+    &__button
+        width: 100%
+        height: 25px
+        border: none
+        background-color: var.$primary-icon-bg-color
+        &:first-of-type
+            border-top-left-radius: 10px
+            border-bottom-left-radius: 10px
+        &:last-of-type
+            border-top-right-radius: 10px
+            border-bottom-right-radius: 10px
+
+        &--active
+            background-color: var.$button-color-active

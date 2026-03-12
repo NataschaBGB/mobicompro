@@ -1,13 +1,13 @@
 import { useLoaderData } from "react-router";
 import Header from "../components/Header/Header";
 import HeatMode from "../components/HeatMode/HeatMode";
-// import HeatVent from "../components/HeatVent/HeatVent";
+import HeatVent from "../components/HeatVent/HeatVent";
 
 
 export default function Heat() {
 
     const devices = useLoaderData();
-    // console.log("devices", devices);
+    console.log("devices", devices);
 
     
     return (
@@ -43,7 +43,7 @@ export default function Heat() {
                             </div>
                         </section>
 
-                        {/* <HeatVent device={device} /> */}
+                        <HeatVent device={device} />
 
                         <HeatMode device={device} />
 
