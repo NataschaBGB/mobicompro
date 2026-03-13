@@ -1,100 +1,169 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
-export default function CircularThermostat({ initialTemp = 20, onChangeEnd }) {
 
-    const min = 0;
-    const max = 30;
-    const size = 220;
-    const stroke = 18;
-    const radius = (size - stroke) / 2;
-    const center = size / 2;
+// This component renders an interactive circular thermostat.
 
+// The user can drag a small knob along the bottom half of a circle to select a temperature.
+
+// The selected temperature is shown in the center of the thermostat and is also sent back to the parent component when the user releases the knob.
+
+export default function CircularThermostat({ initialTemp = 15, updateTargetTemp }) {
+
+    // temp = the temperature currently selected on the thermostat.
+    // We store it in React state so the UI automatically updates whenever the user drags the knob.
     const [temp, setTemp] = useState(initialTemp);
-    const dragging = useRef(false);
 
-    const angleFromTemp = (t) => (t - min) / (max - min) * 270 - 135;
-    const tempFromAngle = (angle) => {
-        const normalized = (angle + 135) / 270;
-        const value = min + normalized * (max - min);
-        return Math.round(Math.max(min, Math.min(max, value)));
-    };
 
-    const polarToCartesian = (angle) => {
-        const rad = angle * Math.PI / 180;
-        return { x: center + radius * Math.cos(rad), y: center + radius * Math.sin(rad) };
-    };
+    // containerRef stores a reference to the outer HTML element that contains the thermostat.
 
-    const updateFromEvent = (e) => {
-        let clientX, clientY;
+    // We need this so we can measure where the user clicks or touches relative to the slider on the screen.
+    const containerRef = useRef(null);
 
-        if (e.touches) {
-            clientX = e.touches[0].clientX;
-            clientY = e.touches[0].clientY;
-        } else {
-            clientX = e.clientX;
-            clientY = e.clientY;
-        }
+    // These values define the size and structure of the circular slider.
+    // Distance from the center of the circle to the track
+    const radius = 110;
+    // Thickness of the circular track line
+    const strokeWidth = 15;
 
-        const rect = document.querySelector(".thermostat-svg").getBoundingClientRect();
+    // The center point of the circle.
+    // Because SVG positions are calculated from the top-left corner, we offset the center so everything lines up correctly.
+    const center = radius + strokeWidth;
+
+    // This function runs whenever the user presses or drags the knob with either a mouse or a finger.
+    // Its job is to convert the pointer position on the screen into a temperature value.
+    const handlePointer = (clientX, clientY) => {
+
+        // If the container element isn't available yet, stop.
+        if (!containerRef.current) return;
+
+        // Get the position and size of the thermostat element relative to the browser window.
+        const rect = containerRef.current.getBoundingClientRect();
+
+        // Convert the pointer position into coordinates relative to the center of the circular slider.
         const x = clientX - rect.left - center;
-        const y = clientY - rect.top - center;
+        const y = center - (clientY - rect.top);
 
-        const angle = Math.atan2(y, x) * 180 / Math.PI;
-        const value = tempFromAngle(angle);
-        setTemp(value);
+        // Convert the x/y position into an angle.
+        // This uses trigonometry (atan2) to determine where the pointer sits along the circular track.
+        let angle = Math.atan2(y, x);
+
+        // Flip the angle so it matches the visual direction of the thermostat.
+        angle = Math.PI - angle;
+
+        // Limit movement to the bottom half of the circle.
+        // This prevents the knob from moving into the top half where the slider is not visible.
+        if (angle < 0) angle = 0;
+        if (angle > Math.PI) angle = Math.PI;
+
+        // Convert the angle into a temperature value.
+        // - 0 radians = 0°C
+        // - π radians = 30°C
+        // The value is rounded to whole degrees.
+        const newTemp = Math.round((angle / Math.PI) * 30);
+
+        // Update the thermostat display
+        setTemp(newTemp);
     };
 
-    useEffect(() => {
-        const handleMove = (e) => { if (dragging.current) updateFromEvent(e); };
-        const handleUp = () => { if (dragging.current) { dragging.current = false; onChangeEnd?.(temp); } };
+    // This runs when the user stops dragging.
+    // At this moment we notify the parent component about the selected temperature.
+    const handlePointerUp = () => {
+        updateTargetTemp(temp);
+    };
 
-        window.addEventListener("mousemove", handleMove);
-        window.addEventListener("mouseup", handleUp);
+    // Now we convert the temperature back into a position on the circular slider.
+    // This determines where the knob should be drawn.
 
-        window.addEventListener("touchmove", handleMove);
-        window.addEventListener("touchend", handleUp);
+    // Convert temperature to an angle
+    const angle = (temp / 30) * Math.PI;
 
-        return () => {
-            window.removeEventListener("mousemove", handleMove);
-            window.removeEventListener("mouseup", handleUp);
-            window.removeEventListener("touchmove", handleMove);
-            window.removeEventListener("touchend", handleUp);
-        };
-    }, [temp]);
+    // Flip the angle to match the visual orientation
+    const angleFlipped = Math.PI - angle;
 
-    const angle = angleFromTemp(temp);
-    const knob = polarToCartesian(angle);
-    const circumference = 2 * Math.PI * radius;
-    
+    // Use cosine and sine to calculate the exact X/Y coordinates on the circle where the knob should appear.
+    const thumbX = center + radius * Math.cos(angleFlipped);
+    const thumbY = center - radius * Math.sin(angleFlipped);
+
+
     return (
-        <svg
-            className="thermostat-svg"
-            width={size}
-            height={size}
-            onMouseDown={(e) => { dragging.current = true; updateFromEvent(e); }}
-            onTouchStart={(e) => { dragging.current = true; updateFromEvent(e); }}
-            style={{ cursor: "pointer", display: "block", margin: "auto" }}
+        <div 
+            className="heat-thermostat__slider"
+            ref={containerRef}
         >
-            <circle cx={center} cy={center} r={radius} stroke="#e5e5e5" strokeWidth={stroke} fill="none" />
-            <circle
-                cx={center}
-                cy={center}
-                r={radius}
-                stroke="#1d4a8f"
-                strokeWidth={stroke}
-                fill="none"
-                strokeDasharray={circumference}
-                strokeDashoffset={circumference * (1 - (temp - min)/(max - min))}
-                transform={`rotate(-135 ${center} ${center})`}
-                strokeLinecap="round"
-            />
-            <circle cx={knob.x} cy={knob.y} r="12" fill="#fff" stroke="#1d4a8f" strokeWidth="4" />
-            <text
-                x="50%" y="50%" textAnchor="middle" dominantBaseline="middle"
-                fontSize="38" fontWeight="600" fill="#333"
-            >
-                {temp}°C
-            </text>
-        </svg>
+            <svg>
+                {/* TRACK (the circular path the knob moves along) */}
+                <defs>
+                    {/* 
+                    This filter adds a subtle inner shadow
+                    to give the slider a slightly recessed look.
+                    */}
+                    <filter id="inset-shadow">
+                        <feFlood floodColor="lightgrey"/>
+                        <feComposite operator="out" in2="SourceGraphic"/>
+                        <feGaussianBlur stdDeviation="2"/>
+                        <feComposite operator="atop" in2="SourceGraphic"/>
+                    </filter>
+                </defs>
+
+                <defs>
+                    {/* 
+                    This clipPath hides the bottom half of the circle,
+                    so the thermostat appears as a half-circle slider.
+                    */}
+                    <clipPath id="bottom-half">
+                        <rect x="0" y="0" width="250" height="125" />
+                    </clipPath>
+                </defs>
+
+                {/* Background track (bottom half) */}
+                <circle
+                    cx="126" cy="126" r="110"
+                    fill="none"
+                    stroke="#fff"
+                    strokeWidth="20"
+                    strokeLinecap="round"
+                    filter="url(#inset-shadow)"
+                />
+
+                {/* Visible slider track (top half) */}
+                <circle
+                    cx="126" cy="126" r="110"
+                    fill="none"
+                    stroke="#1d4a8f"
+                    strokeWidth="20"
+                    strokeLinecap="round"
+                    clipPath="url(#bottom-half)"
+                />
+
+                {/* Draggable knob */}
+                <circle 
+                    // Mouse events (desktop)
+                    onMouseDown={(e) => handlePointer(e.clientX, e.clientY)}
+                    onMouseMove={(e) => e.buttons === 1 && handlePointer(e.clientX, e.clientY)}
+                    onMouseUp={handlePointerUp}
+
+                    // Touch events (mobile)
+                    onTouchStart={(e) => handlePointer(e.touches[0].clientX, e.touches[0].clientY)}
+                    onTouchMove={(e) => handlePointer(e.touches[0].clientX, e.touches[0].clientY)}
+                    onTouchEnd={handlePointerUp}
+
+                    // Position of the knob
+                    cx={thumbX} 
+                    cy={thumbY}
+
+                    // Styling
+                    r={15}
+                    fill="#fff"
+                    stroke="#1d4a8f"
+                    strokeWidth={4}
+                />
+            </svg>
+
+            {/* Center display of degrees */}
+            <div className="heat-thermostat__value">
+                <p>{Math.round(temp)}°C</p>
+                <p>Termostat</p>
+            </div>
+        </div>
     );
 }
