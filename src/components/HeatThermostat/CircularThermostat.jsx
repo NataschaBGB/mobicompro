@@ -43,6 +43,9 @@ export default function CircularThermostat({ initialTemp = 15, updateTargetTemp 
         const x = clientX - rect.left - center;
         const y = center - (clientY - rect.top);
 
+        // If the pointer is above the center line (y < 0), we ignore it because the slider only responds to the top half of the circle.
+        if (y < 0) return;
+
         // Convert the x/y position into an angle.
         // This uses trigonometry (atan2) to determine where the pointer sits along the circular track.
         let angle = Math.atan2(y, x);
@@ -58,17 +61,16 @@ export default function CircularThermostat({ initialTemp = 15, updateTargetTemp 
         // Convert the angle into a temperature value.
         // - 0 radians = 0°C
         // - π radians = 30°C
-        // The value is rounded to whole degrees.
-        const newTemp = Math.round((angle / Math.PI) * 30);
-
-        // Update the thermostat display
+        const newTemp = (angle / Math.PI) * 30;
+        
+        // Update the state with the new temperature, which will automatically update the UI.
         setTemp(newTemp);
     };
 
     // This runs when the user stops dragging.
     // At this moment we notify the parent component about the selected temperature.
     const handlePointerUp = () => {
-        updateTargetTemp(temp);
+        updateTargetTemp(Math.round(temp));
     };
 
     // Now we convert the temperature back into a position on the circular slider.
@@ -117,7 +119,7 @@ export default function CircularThermostat({ initialTemp = 15, updateTargetTemp 
 
                 {/* Background track (bottom half) */}
                 <circle
-                    cx="126" cy="126" r="110"
+                    cx={center} cy={center} r="110"
                     fill="none"
                     stroke="#fff"
                     strokeWidth="20"
@@ -127,7 +129,7 @@ export default function CircularThermostat({ initialTemp = 15, updateTargetTemp 
 
                 {/* Visible slider track (top half) */}
                 <circle
-                    cx="126" cy="126" r="110"
+                    cx={center} cy={center} r="110"
                     fill="none"
                     stroke="#1d4a8f"
                     strokeWidth="20"
@@ -137,15 +139,21 @@ export default function CircularThermostat({ initialTemp = 15, updateTargetTemp 
 
                 {/* Draggable knob */}
                 <circle 
-                    // Mouse events (desktop)
-                    onMouseDown={(e) => handlePointer(e.clientX, e.clientY)}
-                    onMouseMove={(e) => e.buttons === 1 && handlePointer(e.clientX, e.clientY)}
-                    onMouseUp={handlePointerUp}
+                    onPointerDown={(e) => {
+                        e.target.setPointerCapture(e.pointerId);
+                        handlePointer(e.clientX, e.clientY);
+                    }}
 
-                    // Touch events (mobile)
-                    onTouchStart={(e) => handlePointer(e.touches[0].clientX, e.touches[0].clientY)}
-                    onTouchMove={(e) => handlePointer(e.touches[0].clientX, e.touches[0].clientY)}
-                    onTouchEnd={handlePointerUp}
+                    onPointerMove={(e) => {
+                        if (e.buttons === 1) {
+                            handlePointer(e.clientX, e.clientY);
+                        }
+                    }}
+
+                    onPointerUp={(e) => {
+                        e.target.releasePointerCapture(e.pointerId);
+                        handlePointerUp();
+                    }}
 
                     // Position of the knob
                     cx={thumbX} 
