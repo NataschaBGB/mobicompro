@@ -8,6 +8,8 @@ import './Navigation.sass'
 
 
 export default function Navigation() {
+
+    const deviceId = localStorage.getItem("deviceId");
     
     return (
         <nav className="navigation">
@@ -20,7 +22,7 @@ export default function Navigation() {
                 <BsGrid className='icon' />
             </NavLink>
 
-            <NavLink to="/mobicompro/statistics" 
+            <NavLink to={`/mobicompro/statistics/${deviceId}`} 
                 className={({ isActive }) =>
                     `navigation__navigation-icon ${isActive ? "navigation__navigation-icon--active" : ""}`
                 }>

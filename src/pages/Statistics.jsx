@@ -1,31 +1,23 @@
-import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router";
 import Navigation from "../components/Navigation/Navigation";
 import Header from "../components/Header/Header";
 
 
 export default function Statistics() {
 
-    const API_TOKEN = import.meta.env.VITE_MOBICOM_API_TOKEN;
+    const { statistics, yesterday, today } = useLoaderData();
+    console.log("Hele ugen:", statistics);
+    console.log("I går:", yesterday);
+    console.log("I dag:", today);
 
-    const [statisticsData, setStatisticsData] = useState([]);
-    
-    useEffect(() => {
-        // get device_id from local storage
-        fetch('https://exercise.mobicom-pro.com/api/statistics?device_id=36&from=2025-01-01&to=2026-01-14', {
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${API_TOKEN}`
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            setStatisticsData(data);
-            console.log("data", data);
-        })
-        .catch(err => console.error(err));
-    }, []);
+    // save yesterday's kWh usage and today's kWh usage in local storage, so we can use it in the UsedEnergy component to show the difference in kWh usage between yesterday and today, and calculate the percentage difference
+    if (yesterday && yesterday.kwh) {
+        localStorage.setItem("yesterdayKwh", yesterday.kwh);
+    }
+    if (today && today.kwh) {
+        localStorage.setItem("todayKwh", today.kwh);
+    }
+
 
     return (
         <section className="statistics-page">
