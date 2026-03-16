@@ -44,15 +44,15 @@ export default function useHeatDevice(device) {
 
         try {
 
-            console.log("Updating device:", {
-                id: device.id,
-                body: {
-                    name: device.name,
-                    target_temp: newTargetTemp,
-                    vent_level: newVentLevel,
-                    work_mode: newMode
-                }
-            });
+            // console.log("Updating device:", {
+            //     id: device.id,
+            //     body: {
+            //         name: device.name,
+            //         target_temp: newTargetTemp,
+            //         vent_level: newVentLevel,
+            //         work_mode: newMode
+            //     }
+            // });
 
             const response = await fetch(
                 `https://exercise.mobicom-pro.com/api/devices/${device.id}`,

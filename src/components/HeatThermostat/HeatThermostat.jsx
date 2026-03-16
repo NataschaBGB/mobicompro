@@ -1,14 +1,11 @@
 import { PiThermometerHotLight } from "react-icons/pi";
 import { IoIosCloudOutline } from "react-icons/io";
-
-import './HeatThermostat.sass';
 import useHeatDevice from '../hooks/useHeatDevice';
-import { useEffect, useRef, useState } from 'react';
 import CircularThermostat from './CircularThermostat';
-// import { CircularInput, CircularTrack, CircularProgress, CircularThumb } from "react-circular-input";
+import './HeatThermostat.sass';
 
 
-export default function HeatThermostat({ device }) {
+export default function HeatThermostat({ device, weather }) {
 
     // targetTemp = current target temp in the API
     // updateTargetTemp = function to update target temp in API
@@ -29,7 +26,7 @@ export default function HeatThermostat({ device }) {
                     <div className="heat-thermostat__outside-temperature">
                         <IoIosCloudOutline className="icon" />
                         <div className='outside-temp'>
-                            <p>11°C</p>
+                            <p>{weather.temperature}{weather.unit}</p>
                             <span>Udetemperatur</span>
                         </div>
                     </div>
