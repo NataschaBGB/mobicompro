@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import Home from './pages/Home';
 import devicesLoader from './loaders/devicesLoader';
+import statisticsLoader from './loaders/statisticsLoader';
 import Thermostat from './pages/Thermostat';
 import Statistics from './pages/Statistics';
 import Error from './pages/Error';
@@ -22,10 +23,10 @@ export default function App() {
         element: <Thermostat />
       },
       {
-        path: '/mobicompro/statistics',
+        path: '/mobicompro/statistics/:deviceId',
         element: <Statistics />,
-        // loader: devicesLoader,
-        // hydrateFallbackElement: <p>Finder dine devices...</p>
+        loader: statisticsLoader,
+        hydrateFallbackElement: <p>Finder Statistik...</p>
       },
       {
         path: '/mobicompro/heat',

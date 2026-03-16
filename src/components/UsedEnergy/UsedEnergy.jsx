@@ -10,6 +10,8 @@ export default function UsedEnergy() {
     const options = { day: 'numeric', month: 'short', year: 'numeric' };
     const formattedDate = today.toLocaleDateString('da-DK', options);
 
+    const deviceId = localStorage.getItem("deviceId");
+
     return (
 
         <section className="used-energy">
@@ -19,7 +21,7 @@ export default function UsedEnergy() {
             <section className="used-energy__statistics">
 
                 <div className="used-energy__today">
-                    <NavLink to="/mobicompro/statistics">
+                    <NavLink to={`/mobicompro/statistics/${deviceId}`}>
                         <PiPulse className='icon' />
                     </NavLink>
                     {/* get todays date from https://exercise.mobicom-pro.com/api/weather */}

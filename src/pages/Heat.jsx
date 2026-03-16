@@ -12,6 +12,15 @@ export default function Heat() {
     console.log("devices", devices);
     console.log("weather", weather);
 
+    // get device id
+    const deviceId = devices && devices.length > 0 ? devices[0].id : null;
+    console.log(deviceId);
+    
+    // if id exists, save device id in local storage, so we can use it in the statistics page to fetch the correct statistics for the device
+    if (deviceId) {
+        localStorage.setItem("deviceId", deviceId);
+    }
+
     
     return (
         <section className="heat-page">
@@ -24,7 +33,7 @@ export default function Heat() {
                     devices.map((device) => (
                         // key = unique id for each device, so React can keep track of them when they change
                         // show data for each device in the API - name, current temp, target temp, mode and weather with that id
-                        <div key={device.id}>
+                        <div key={device.id} deviceId={device.id}>
 
                             <HeatThermostat device={device} weather={weather} />
 
