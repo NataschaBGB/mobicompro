@@ -13,12 +13,8 @@ export default function Statistics() {
     console.log("I dag:", today);
 
     // save yesterday's kWh usage and today's kWh usage in local storage, so we can use it in the UsedEnergy component to show the difference in kWh usage between yesterday and today, and calculate the percentage difference
-    if (yesterday && yesterday.kwh) {
-        localStorage.setItem("yesterdayKwh", yesterday.kwh);
-    }
-    if (today && today.kwh) {
-        localStorage.setItem("todayKwh", today.kwh);
-    }
+    localStorage.setItem("yesterdayKwh", JSON.stringify(yesterday.kwh));
+    localStorage.setItem("todayKwh", JSON.stringify(today.kwh));
 
 
     return (
