@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router'
 import Home from './pages/Home';
+import homeLoader from './loaders/homeLoader';
 import devicesLoader from './loaders/devicesLoader';
 import statisticsLoader from './loaders/statisticsLoader';
 import Thermostat from './pages/Thermostat';
@@ -16,7 +17,9 @@ export default function App() {
     [
       {
         path: '/mobicompro/',
-        element: <Home />
+        element: <Home />,
+        loader: homeLoader,
+        hydrateFallbackElement: <p>Finder Statistik...</p>
       },
       {
         path: '/mobicompro/thermostat',
