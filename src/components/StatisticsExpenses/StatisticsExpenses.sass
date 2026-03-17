@@ -1,0 +1,49 @@
+@use '../../style/_variables' as var;
+    
+    
+.statistics-expenses
+    margin: 20px 0
+
+    &__title
+        font-size: 16px
+        color: var.$primary-title-color
+        font-weight: 400
+        margin: 0 0 15px 10px
+
+    &__day
+        display: grid
+        grid-template-columns: auto 1fr auto
+        align-items: center
+        gap: 15px
+        width: 100%
+        background-color: var.$box-bg-color
+        margin: 0 0 10px
+        padding: 10px
+        border-radius: 10px
+        box-shadow: 0px 0px 12px -2px var.$box-shadow-color
+
+        .icon
+            font-size: 45px
+            color: var.$primary-icon-color
+            background-color: var.$primary-icon-bg-color
+            border-radius: 10px
+            padding: 5px
+        .icon-today
+            color: var.$secondary-icon-color
+            background-color: var.$secondary-icon-bg-color
+
+        .day-info
+            display: flex
+            flex-direction: column
+            justify-content: space-between
+            height: 100%
+        .date
+            font-size: 14px
+            color: var.$primary-title-color
+        .kwh-usage
+            font-size: 12px
+            color: var.$primary-text-color
+
+        .total-price
+            font-size: 20px
+            color: var.$primary-title-color

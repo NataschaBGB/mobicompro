@@ -1,6 +1,8 @@
 import { useLoaderData } from "react-router";
 import Navigation from "../components/Navigation/Navigation";
 import Header from "../components/Header/Header";
+import StatisticsUsage from "../components/StatisticsUsage/StatisticsUsage";
+import StatisticsExpenses from "../components/StatisticsExpenses/StatisticsExpenses";
 
 
 export default function Statistics() {
@@ -25,7 +27,10 @@ export default function Statistics() {
             <Header showBurgerMenu={false} showBackButton={false} showOptions={true} title="Statistik" />
 
             <main className="statistics">
-                <h2>Statistics Page</h2>
+
+                <StatisticsUsage />
+                <StatisticsExpenses statistics={statistics} />
+
             </main>
 
             <Navigation />
