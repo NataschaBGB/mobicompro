@@ -1,24 +1,30 @@
 import { PiThermometerHotLight } from "react-icons/pi";
 import { IoIosCloudOutline } from "react-icons/io";
-import useHeatDevice from '../hooks/useHeatDevice';
 import CircularThermostat from './CircularThermostat';
 import './HeatThermostat.sass';
 
 
-export default function HeatThermostat({ device, weather }) {
+export default function HeatThermostat({ device, weather, hook }) {
 
-    // targetTemp = current target temp in the API
-    // updateTargetTemp = function to update target temp in API
-    // all from the useHeatDevice hook, where we send in the device as an argument, so it can update the target temp of the correct device when we call updateTargetTemp
-    const { targetTemp, updateTargetTemp } = useHeatDevice(device);
+    // targetTemp = the current target temperature of the device, which is passed down from the parent component (Heat.jsx) through the hook.
+    //     - This value is used to set the initial position of the circular thermostat and is updated when the user interacts with the thermostat.
+    // updateTargetTemp = function that allows us to update the target temperature in the parent component (Heat.jsx) when the user selects a new temperature on the circular thermostat.
+    //     - This function is called when the user finishes dragging the knob to set a new temperature.
+    // hook = an object returned from the useHeatDevice custom hook, which contains the current state and functions to update the device.
+    //     - We destructure targetTemp and updateTargetTemp from this hook to use in our component.
+    //     - The hook manages the logic for updating the device's temperature and ensures that changes are reflected across all components that use this hook for the same device.
+    const { targetTemp, updateTargetTemp } = hook;
+
 
     return (
         <section className="heat-thermostat">
             <h2 className="heat-thermostat__title">{device.name}</h2>
 
             <section className="heat-thermostat__temperatures">
-                <CircularThermostat 
-                    initialTemp={targetTemp}
+                <CircularThermostat
+                    // set targetTemp from CircularThermostat to the value from the hook, so the thermostat knob starts at the correct position based on the device's current target temperature.
+                    targetTemp={targetTemp}
+                    // set updateTargetTemp from CircularThermostat to the function from the hook, so when the user selects a new temperature on the thermostat, it updates the target temperature in the parent component and ultimately updates the device's temperature.
                     updateTargetTemp={updateTargetTemp}
                 />
 

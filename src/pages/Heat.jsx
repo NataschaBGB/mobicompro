@@ -1,25 +1,20 @@
 import { useLoaderData } from "react-router";
 import Header from "../components/Header/Header";
+import useHeatDevice from "../components/hooks/useHeatDevice";
 import HeatThermostat from "../components/HeatThermostat/HeatThermostat";
 import HeatVent from "../components/HeatVent/HeatVent";
 import HeatMode from "../components/HeatMode/HeatMode";
-
+import HeatThermostatOnOff from "../components/HeatThermostatOnOff/HeatThermostatOnOff";
 
 
 export default function Heat() {
 
+    // useLoaderData is a hook from react-router that allows us to access the data loaded by the loader function for this route.
+    // In this case, we expect the loader to return an object containing "devices" (the heating devices) and "weather" (the current weather information).
+    // We destructure these values from the object returned by useLoaderData to use in our component.
     const { devices, weather } = useLoaderData();
-    console.log("devices", devices);
-    console.log("weather", weather);
-
-    // get device id
-    const deviceId = devices && devices.length > 0 ? devices[0].id : null;
-    console.log(deviceId);
-    
-    // if id exists, save device id in local storage, so we can use it in the statistics page to fetch the correct statistics for the device
-    if (deviceId) {
-        localStorage.setItem("deviceId", deviceId);
-    }
+    // console.log("devices", devices);
+    // console.log("weather", weather);
 
     
     return (
@@ -30,32 +25,32 @@ export default function Heat() {
             <main className="heat">
                 {/* loop through devices */}
                 {devices && devices.length > 0 ? (
-                    devices.map((device) => (
-                        // key = unique id for each device, so React can keep track of them when they change
-                        // show data for each device in the API - name, current temp, target temp, mode and weather with that id
-                        <div key={device.id} deviceId={device.id}>
+                    devices.map((device) => {
 
-                            <HeatThermostat device={device} weather={weather} />
+                        // For each device, we create a hook using the useHeatDevice custom hook.
+                        // This hook will manage the state and logic for this specific device, allowing us to control its temperature, mode, ventilation level, and on/off state from the child components.
+                        const hook = useHeatDevice(device);
 
-                            <HeatVent device={device} />
-
-                            <HeatMode device={device} />
-
-                            <button className="heat_on-off-button">
-                                {/* on click - set state and save in useLocalStorage hook */}
-                                on/off icon
-                            </button>
-
-                        </div>
-                    ))
+                        return (
+                            <div key={device.id}>
+                                <HeatThermostat
+                                    device={device}
+                                    weather={weather}
+                                    hook={hook}
+                                />
+                                <HeatVent device={device} hook={hook} />
+                                <HeatMode device={device} hook={hook} />
+                                <HeatThermostatOnOff hook={hook} />
+                            </div>
+                        );
+                    })
                 ) : (
                     <section className="heat__no-devices">
-                    <h3>Ingen data blev fundet for dette device</h3>
+                        <h3>Ingen data blev fundet for dette device</h3>
                     </section>
                 )}
-                
+
             </main>
-    
         </section>
     )
 

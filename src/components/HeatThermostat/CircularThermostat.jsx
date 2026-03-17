@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 
 // This component renders an interactive circular thermostat.
@@ -7,15 +7,13 @@ import { useState, useRef } from "react";
 
 // The selected temperature is shown in the center of the thermostat and is also sent back to the parent component when the user releases the knob.
 
-export default function CircularThermostat({ initialTemp = 15, updateTargetTemp }) {
+export default function CircularThermostat({ targetTemp, updateTargetTemp }) {
 
-    // temp = the temperature currently selected on the thermostat.
-    // We store it in React state so the UI automatically updates whenever the user drags the knob.
-    const [temp, setTemp] = useState(initialTemp);
-
+    // temp = current temperature selected by the user while dragging the knob. This is stored in local state to provide immediate visual feedback as the user drags, without sending API calls for every small change.
+    // setTemp = function to update temp state when user drags the knob, which will automatically update the UI with the new temp value.
+    const [temp, setTemp] = useState(targetTemp);
 
     // containerRef stores a reference to the outer HTML element that contains the thermostat.
-
     // We need this so we can measure where the user clicks or touches relative to the slider on the screen.
     const containerRef = useRef(null);
 
@@ -28,6 +26,11 @@ export default function CircularThermostat({ initialTemp = 15, updateTargetTemp 
     // The center point of the circle.
     // Because SVG positions are calculated from the top-left corner, we offset the center so everything lines up correctly.
     const center = radius + strokeWidth;
+
+    // When the targetTemp prop changes (for example, if the device is turned on/off from another component), we want to update the local temp state to reflect that change, so the UI stays in sync with the actual target temperature of the device.
+    useEffect(() => {
+        setTemp(targetTemp);
+    }, [targetTemp]);
 
     // This function runs whenever the user presses or drags the knob with either a mouse or a finger.
     // Its job is to convert the pointer position on the screen into a temperature value.
@@ -139,17 +142,18 @@ export default function CircularThermostat({ initialTemp = 15, updateTargetTemp 
 
                 {/* Draggable knob */}
                 <circle 
+                    // When the user presses down on the knob, we capture the pointer so we can track its movement even if it goes outside the knob's area. We then call handlePointer to update the temperature based on where the user is dragging.
                     onPointerDown={(e) => {
                         e.target.setPointerCapture(e.pointerId);
                         handlePointer(e.clientX, e.clientY);
                     }}
-
+                    // As the user moves the pointer while dragging, we continuously call handlePointer to update the temperature and provide real-time feedback on the UI.
                     onPointerMove={(e) => {
                         if (e.buttons === 1) {
                             handlePointer(e.clientX, e.clientY);
                         }
                     }}
-
+                    // When the user releases the pointer, we call handlePointerUp to finalize the temperature selection and notify the parent component.
                     onPointerUp={(e) => {
                         e.target.releasePointerCapture(e.pointerId);
                         handlePointerUp();

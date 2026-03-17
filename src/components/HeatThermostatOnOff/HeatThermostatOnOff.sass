@@ -1,0 +1,23 @@
+@use '../../style/_variables' as var;
+
+
+.heat-thermostat-on-off
+    padding: 20px 0 40px
+    text-align: center
+
+    &__button
+        border: none
+        border-radius: 50%
+
+        .icon
+            font-size: 60px
+            color: var.$primary-icon-color
+            background-color: var.$primary-icon-bg-color
+            border-radius: 50%
+            padding: 10px
+            cursor: pointer
+
+        &--on
+            .icon
+                color: var.$secondary-icon-color
+                background-color: var.$secondary-icon-bg-color
