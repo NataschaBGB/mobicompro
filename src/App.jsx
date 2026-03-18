@@ -16,36 +16,39 @@ export default function App() {
   const browserRouter = createBrowserRouter(
     [
       {
-        path: '/mobicompro/',
+        path: '/',
         element: <Home />,
         loader: homeLoader,
         hydrateFallbackElement: <p>Finder Statistik...</p>
       },
       {
-        path: '/mobicompro/thermostat',
+        path: '/thermostat',
         element: <Thermostat />
       },
       {
-        path: '/mobicompro/statistics/:deviceId',
+        path: '/statistics/:deviceId',
         element: <Statistics />,
         loader: statisticsLoader,
         hydrateFallbackElement: <p>Finder Statistik...</p>
       },
       {
-        path: '/mobicompro/heat',
+        path: '/heat',
         element: <Heat />,
         loader: devicesLoader,
         hydrateFallbackElement: <p>Finder dine devices...</p>
       },
       {
-        path: '/mobicompro/light',
+        path: '/light',
         element: <Light />
       },
       {
         path: '*',
         element: <Error />
       }
-    ]
+    ],
+    {
+      basename: '/mobicompro'
+    }
   );
 
   return (
