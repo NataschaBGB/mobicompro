@@ -2,7 +2,7 @@
     
     
 .statistics-usage
-    margin: 0 0 20px
+    padding: 0 0 40px
 
     &__header
         display: flex
@@ -14,3 +14,14 @@
         color: var.$primary-title-color
         font-weight: 400
         margin: 0 0 15px 10px
+
+    &__chart
+        aspect-ratio: 1.618
+        background-color: var.$box-bg-color
+        // padding: 10px
+        border-radius: 10px
+        box-shadow: 0px 0px 12px -2px var.$box-shadow-color
+        font-size: 12px
+
+        .dot-label
+            fill: var.$primary-title-color

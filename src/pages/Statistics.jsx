@@ -24,7 +24,7 @@ export default function Statistics() {
 
             <main className="statistics">
 
-                <StatisticsUsage />
+                <StatisticsUsage statistics={statistics} />
                 <StatisticsExpenses statistics={statistics} />
 
             </main>
