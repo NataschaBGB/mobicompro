@@ -1,6 +1,24 @@
 export default async function homeLoader() {
-    const deviceId = localStorage.getItem("deviceId");
-    if (!deviceId) throw new Error("Device ID mangler");
+    
+    let deviceId = localStorage.getItem("deviceId");
+
+    if (!deviceId) {
+        const res = await fetch("https://exercise.mobicom-pro.com/api/devices", {
+            headers: {
+                Authorization: `Bearer ${API_TOKEN}`
+            }
+        });
+
+        if (!res.ok) throw new Error("Kunne ikke hente devices");
+
+        const devices = await res.json();
+
+        if (!devices.length) throw new Error("Ingen devices fundet");
+
+        deviceId = devices[0].id;
+
+        localStorage.setItem("deviceId", deviceId);
+    }
 
     const API_TOKEN = import.meta.env.VITE_MOBICOM_API_TOKEN;
 
