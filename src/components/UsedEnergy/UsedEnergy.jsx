@@ -39,7 +39,7 @@ export default function UsedEnergy() {
             <section className="used-energy__statistics">
 
                 <div className="used-energy__today">
-                    <NavLink to={`/mobicompro/statistics/${deviceId}`}>
+                    <NavLink to={`/statistics/${deviceId}`}>
                         <PiPulse className='icon' />
                     </NavLink>
                     <p className="date">{formattedDate}</p>
