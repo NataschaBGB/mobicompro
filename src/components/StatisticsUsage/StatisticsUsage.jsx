@@ -23,10 +23,12 @@ export default function StatisticsUsage({ statistics }) {
     const kwhUsage = statistics.map((stat) => stat.kwh_usage);
     // devide the sum of the kWh usage for the week by the number of days in the week to get the average kWh usage for the week, so we can show it as a line in the chart to compare each day's usage with the average usage for the week
     const averageKwhUsage = kwhUsage.reduce((sum, usage) => sum + usage, 0) / kwhUsage.length;
+    // console.log(averageKwhUsage);
 
     // if today is 0 (sunday), set todaysIndex to 6, to match sunday in the weekdays array
     // if today is not sunday, set todaysIndex to the result of getDay() - 1, to get the correct index for the weekdays array, where Monday is at index 0 and Sunday is at index 6
     const todayIndex = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1;
+    
 
     // map through the weekdays array
     const statisticsData = weekdays.map((day, index) => {
@@ -122,10 +124,12 @@ export default function StatisticsUsage({ statistics }) {
                     </text>
                 )}
                 />
-                {/* dont show Y-axis */}
+                {/* dont show Y-axis in width */}
                 <YAxis 
                     width={0} 
-                    stroke="none" 
+                    stroke="none"
+                    // set the domain of the y-axis to start at 0 and end at 1.5 times the maximum kWh usage for the week, so we have some space above the highest bar in the chart to show the label for today's kWh usage without it being cut off
+                    domain={[0, Math.max(...kwhUsage) * 1.5]}
                 />
 
                 {/* Grey dotted average line */}
