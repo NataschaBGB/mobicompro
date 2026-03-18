@@ -94,7 +94,7 @@ export const heat_livingroom = [
         ],
         degrees: 22,
         mode: "Manuel",
-        link: "/mobicompro/heat",
+        link: "/heat",
     }
 ]
 
@@ -109,7 +109,7 @@ export const heat_bedroom = [
         ],
         degrees: 17,
         mode: "Tidsplan",
-        link: "/mobicompro/",
+        link: "/",
     }
 ]
 
@@ -124,6 +124,6 @@ export const heat_bathroom = [
         ],
         degrees: 21,
         mode: "Tidsplan",
-        link: "/mobicompro/",
+        link: "/",
     }
 ]
