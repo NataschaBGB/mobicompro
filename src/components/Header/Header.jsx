@@ -35,7 +35,7 @@ export default function Header({ showBurgerMenu, showBackButton, showOptions, ti
 
             {/* style: if showBackButton is set to true - show icon in header */}
             {/* if showBackButton is set to false - hide icon in header */}
-            <NavLink to="/mobicompro" className='header__back' style={{ visibility: showBackButton ? 'visible' : 'hidden' }}>
+            <NavLink to="/" className='header__back' style={{ visibility: showBackButton ? 'visible' : 'hidden' }}>
                 <IoIosArrowBack />
             </NavLink>
 
