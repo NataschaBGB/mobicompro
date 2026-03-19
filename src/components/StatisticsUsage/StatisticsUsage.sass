@@ -1,4 +1,4 @@
-@use '../../style/_variables' as var;
+@use '../../style/_variables' as var
     
     
 .statistics-usage
@@ -8,12 +8,18 @@
         display: flex
         align-items: center
         justify-content: space-between
-        
+        margin: 0 0 15px 10px
+        color: var.$primary-title-color
+
+        #timeframe
+            padding: 5px 10px
+            background-color: var.$body-color
+            border: none
+            font-size: 12px
+
     &__title
         font-size: 16px
-        color: var.$primary-title-color
         font-weight: 400
-        margin: 0 0 15px 10px
 
     &__chart
         aspect-ratio: 1.618
