@@ -59,6 +59,8 @@ It has been a significant challenge, but one that I genuinely enjoyed working on
 ## 🛠 Tech Stack
 
 * **React**
+* **React Router**
+* **React Icons**
 * **JavaScript (ES6+)**
 * **Recharts** (data visualization)
 * **SCSS (Sass)** (styling)
