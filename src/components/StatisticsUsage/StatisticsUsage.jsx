@@ -53,11 +53,10 @@ export default function StatisticsUsage({ statistics }) {
 
             <div className="statistics-usage__header">
                 <h2 className="statistics-usage__title">Forbrug</h2>
-                {/* STYLE SELECT AND DEFAULT TO WEEKLY SHOW */}
                 <select name="timeframe" id="timeframe">
-                    <option value="day">I dag</option>
+                    <option value="day" disabled>I dag</option>
                     <option value="week">Ugentligt</option>
-                    <option value="month">Månedligt</option>
+                    <option value="month" disabled>Månedligt</option>
                 </select>
             </div>
 
