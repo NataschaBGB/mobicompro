@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import PresetSetting from "./PresetSetting";
 import { PresetData } from "./PresetData";
 import './Preset.sass'
