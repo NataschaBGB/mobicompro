@@ -1,3 +1,4 @@
+import { LuChevronDown } from "react-icons/lu";
 import { LiaBedSolid } from "react-icons/lia";
 import { LiaCouchSolid } from "react-icons/lia";
 import { LuBath } from "react-icons/lu";
@@ -9,7 +10,11 @@ export default function Rooms() {
 
     return (
         <section className="rooms">
-            <h2 className="rooms__title">Rum</h2>
+
+            <div className="rooms__header">
+                <h2 className="rooms__title">Rum</h2>
+                <p>Vis Alle <LuChevronDown className="icon" /></p>
+            </div>
 
             <section className="rooms__list">
                 <div className="room">
