@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router";
 import Header from "../components/Header/Header";
-import useHeatDevice from "../components/hooks/useHeatDevice";
+import useHeatDevice from "../hooks/useHeatDevice";
 import HeatThermostat from "../components/HeatThermostat/HeatThermostat";
 import HeatVent from "../components/HeatVent/HeatVent";
 import HeatMode from "../components/HeatMode/HeatMode";

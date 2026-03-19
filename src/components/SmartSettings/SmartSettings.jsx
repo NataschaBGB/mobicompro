@@ -1,10 +1,8 @@
-// import { useLoaderData } from 'react-router';
-import useLocalStorage from "../hooks/useLocalStorage";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import SmartSettingsLight from './SmartSettingsLight';
 import SmartSettingsHeat from './SmartSettingsHeat';
 import { light_livingroom, light_kitchen, light_driveway, heat_livingroom, heat_bedroom, heat_bathroom } from './SmartSettingData'
 import './SmartSettings.sass';
-import { NavLink } from "react-router";
 
 
 

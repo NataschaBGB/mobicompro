@@ -1,4 +1,3 @@
-import useHeatDevice from "../hooks/useHeatDevice";
 import { heatVentLevels } from "./HeatVentData";
 import { LuAirVent } from "react-icons/lu";
 import './HeatVent.sass';
